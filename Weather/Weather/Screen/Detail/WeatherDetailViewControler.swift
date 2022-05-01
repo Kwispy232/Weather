@@ -72,8 +72,6 @@ class WeatherDetailViewControler: UIViewController {
         self.tableView.isHidden = true
         activityIndicator.startAnimating()
 
-        
-        
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         let currentDate = Date()
@@ -238,7 +236,6 @@ class WeatherDetailViewControler: UIViewController {
         let calendar = Calendar.current
         var date = Date()
         
-
         let actualHour = calendar.component(.hour, from: date)
 
         var moreThan23 = false
@@ -277,7 +274,7 @@ class WeatherDetailViewControler: UIViewController {
 extension WeatherDetailViewControler: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return days.count - 1
+        return days.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -285,7 +282,7 @@ extension WeatherDetailViewControler: UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        cell.setDailyCell(with: days[indexPath.row + 1])
+        cell.setDailyCell(with: days[indexPath.row])
         return cell
     }
     
