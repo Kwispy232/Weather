@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  Weather
+
+  Created by Sebastian Mraz on 03/05/2022.
+  
+*/
+"Localization is denied" = "Lokalizačné služby sú zakázané";
+"If you want to continue turn on localization." = "Ak chcete pokračovať zapnite si lokalizačné služby";
+"Feels like " = "Pocitová teplota je ";
+"Hourly temperature in °C" = "Hodinová predpoveď v °C";
+"Clouds" = "Zamračené";
+"Clear" = "Jasno";
+"Rain" = "Dážd";

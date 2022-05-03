@@ -29,6 +29,7 @@
 		CA66A57C280C031C00B5FEED /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA66A57B280C031C00B5FEED /* SearchManager.swift */; };
 		CA66A57E281338F700B5FEED /* MapViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA66A57D281338F700B5FEED /* MapViewControler.swift */; };
 		CA67B9B227FDB50D00B00F10 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA67B9B127FDB50D00B00F10 /* LocationManager.swift */; };
+		CAFBD93628218E9B007B2D18 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CAFBD93828218E9B007B2D18 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,6 +68,8 @@
 		CA66A57B280C031C00B5FEED /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		CA66A57D281338F700B5FEED /* MapViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewControler.swift; sourceTree = "<group>"; };
 		CA67B9B127FDB50D00B00F10 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		CAFBD93728218E9B007B2D18 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CAFBD93928218E9D007B2D18 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,7 @@
 		CA15CC1827EE81EA007E6692 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				CAFBD92B28218B2B007B2D18 /* Translation */,
 				CA67B9AB27FDAFCB00B00F10 /* App */,
 				CA67B9AD27FDB0E900B00F10 /* Screen */,
 				CA67B9AC27FDAFEC00B00F10 /* Model */,
@@ -222,6 +226,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		CAFBD92B28218B2B007B2D18 /* Translation */ = {
+			isa = PBXGroup;
+			children = (
+				CAFBD93828218E9B007B2D18 /* Localizable.strings */,
+			);
+			path = Translation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -269,6 +281,7 @@
 			knownRegions = (
 				en,
 				Base,
+				sk,
 			);
 			mainGroup = CA15CC0D27EE81EA007E6692;
 			packageReferences = (
@@ -294,6 +307,7 @@
 				CA66A570280AC70F00B5FEED /* SearchViewControler.storyboard in Resources */,
 				CA430B5B27FF0ADB00E1BC47 /* WeatherCell.xib in Resources */,
 				CA66A575280ACB3600B5FEED /* FavouriteViewControler.storyboard in Resources */,
+				CAFBD93628218E9B007B2D18 /* Localizable.strings in Resources */,
 				CA66A577280ACB4400B5FEED /* MapViewControler.storyboard in Resources */,
 				CA66A573280AC9DA00B5FEED /* TabbarViewControler.storyboard in Resources */,
 			);
@@ -323,6 +337,18 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CAFBD93828218E9B007B2D18 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CAFBD93728218E9B007B2D18 /* en */,
+				CAFBD93928218E9D007B2D18 /* sk */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		CA15CC2A27EE81EC007E6692 /* Debug */ = {

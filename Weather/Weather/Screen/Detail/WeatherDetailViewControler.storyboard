@@ -85,7 +85,7 @@
                                             </imageReference>
                                         </imageView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NaV-gw-Sis" customClass="LineChartView" customModule="Charts">
-                                            <rect key="frame" x="16" y="221.66666666666666" width="343" height="264.33333333333337"/>
+                                            <rect key="frame" x="16" y="229.66666666666666" width="343" height="256.33333333333337"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         </view>
                                     </subviews>
@@ -108,7 +108,7 @@
                                         <constraint firstAttribute="trailing" secondItem="sKd-rv-MFr" secondAttribute="trailing" constant="16" id="iAI-AH-s1y"/>
                                         <constraint firstItem="YJK-KW-wgc" firstAttribute="leading" secondItem="4G4-ts-ETq" secondAttribute="leading" constant="16" id="igg-zj-TbI"/>
                                         <constraint firstItem="NaV-gw-Sis" firstAttribute="leading" secondItem="4G4-ts-ETq" secondAttribute="leading" constant="16" id="j6K-mT-sRm"/>
-                                        <constraint firstItem="NaV-gw-Sis" firstAttribute="top" secondItem="YJK-KW-wgc" secondAttribute="bottom" constant="8" id="maW-2q-fwE"/>
+                                        <constraint firstItem="NaV-gw-Sis" firstAttribute="top" secondItem="YJK-KW-wgc" secondAttribute="bottom" constant="16" id="maW-2q-fwE"/>
                                         <constraint firstItem="TyC-mM-C1d" firstAttribute="leading" secondItem="4G4-ts-ETq" secondAttribute="leading" constant="16" id="nFh-uT-ioY"/>
                                         <constraint firstItem="6YL-dc-MOQ" firstAttribute="top" secondItem="4G4-ts-ETq" secondAttribute="top" id="o5r-9H-6a0"/>
                                         <constraint firstItem="xtr-Jm-Lea" firstAttribute="top" secondItem="sKd-rv-MFr" secondAttribute="bottom" constant="16" id="ojQ-4B-vxH"/>
@@ -134,7 +134,7 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ioI-Bc-eg9">
                                 <rect key="frame" x="0.0" y="88" width="375" height="724"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeL-nI-QIl">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeL-nI-QIl">
                                         <rect key="frame" x="16" y="318.33333333333331" width="343" height="20.333333333333314"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>

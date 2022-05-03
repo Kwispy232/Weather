@@ -195,9 +195,9 @@ class WeatherDetailViewControler: UIViewController {
     func setUpView(with currentWeather: CurrentWeather) {
         setButtonImage()
         temperature.text = "\(Int(currentWeather.temperature))°C"
-        feelsLike.text = "Feels like \(Int(currentWeather.feelsLike))°C"
+        feelsLike.text = "Feels like ".localizable() + "\(Int(currentWeather.feelsLike))°C"
         if let first = currentWeather.weather.first {
-            weather.text = "\(first.desc.rawValue)"
+            weather.text = "\(first.desc.rawValue)".localizable()
         }
         tableView.register(UINib(nibName: "WeatherCell", bundle: nil), forCellReuseIdentifier: "WeatherCell")
         tableView.rowHeight = 50
@@ -205,7 +205,14 @@ class WeatherDetailViewControler: UIViewController {
     
     
     func presentAlert() {
-        let alertControler = UIAlertController(title: "Localization is denied", message: "If you want to continue turn on localization.", preferredStyle: .actionSheet)
+        var alertControler : UIAlertController?
+        
+        if UIDevice.current.model.contains("iPad") {
+            alertControler = UIAlertController(title: "Localization is denied".localizable(), message: "If you want to continue turn on localization.".localizable(), preferredStyle: .alert)
+        } else {
+            alertControler = UIAlertController(title: "Localization is denied".localizable(), message: "If you want to continue turn on localization.".localizable(), preferredStyle: .actionSheet)
+        }
+
         
         let okAction = UIAlertAction(title: "Ok", style: .cancel)
         
@@ -217,10 +224,14 @@ class WeatherDetailViewControler: UIViewController {
 
         }
         
-        alertControler.addAction(okAction)
-        alertControler.addAction(settingsAction)
         
-        present(alertControler, animated: true)
+        if let alertControler = alertControler {
+            
+            alertControler.addAction(okAction)
+            alertControler.addAction(settingsAction)
+            
+            present(alertControler, animated: true)
+        }
     }
     
     
@@ -257,7 +268,7 @@ class WeatherDetailViewControler: UIViewController {
         }
 
         
-        let line = LineChartDataSet(entries: lineChart, label: "Hourly temperature in °C")
+        let line = LineChartDataSet(entries: lineChart, label: "Hourly temperature in °C".localizable())
         line.colors = [NSUIColor .systemBlue]
         
         let data = LineChartData()
@@ -288,4 +299,9 @@ extension WeatherDetailViewControler: UITableViewDataSource {
     
 }
 
+extension String {
+    func localizable() -> String {
+        return NSLocalizedString(self, tableName: "Localizable", bundle: .main, value: self, comment: self)
+    }
+}
 
