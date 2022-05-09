@@ -16,7 +16,11 @@ class WeatherCell: UITableViewCell {
     
     func setDailyCell(with day: Daily) {
         self.day.text = DateFormatter.dayFormatter.string(from: day.date)
-        self.img.image = day.weather.first?.image?.withRenderingMode(.automatic)
+        if self.traitCollection.userInterfaceStyle == .dark {
+            self.img.image = day.weather.first?.image?.withRenderingMode(.alwaysOriginal)
+        } else {
+            self.img.image = day.weather.first?.image?.withRenderingMode(.automatic)
+        }
         self.pop.text = String(Int(day.pop * 100)) + "%"
         self.temp.text = "\(Int(day.temp.day))°C"
                 

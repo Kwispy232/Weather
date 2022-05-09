@@ -299,6 +299,13 @@ extension WeatherDetailViewControler: UITableViewDataSource {
     
 }
 
+extension WeatherDetailViewControler {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        loadData()
+    }
+}
+
 extension String {
     func localizable() -> String {
         return NSLocalizedString(self, tableName: "Localizable", bundle: .main, value: self, comment: self)
