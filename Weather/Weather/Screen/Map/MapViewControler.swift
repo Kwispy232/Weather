@@ -9,10 +9,14 @@ import MapKit
 import UIKit
 
 class MapViewControler : UIViewController {
-    @IBOutlet var mapView: MKMapView!
-    private var geokoder = CLGeocoder()
+    
+//    MARK: Variables
 
+    @IBOutlet var mapView: MKMapView!
+    private var geocoder = CLGeocoder()
     var currLoc : CurrentLocation?
+
+//    MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,13 +29,14 @@ class MapViewControler : UIViewController {
     @IBAction func longTouch(_ sender: UILongPressGestureRecognizer) {
         let location = sender.location(in: mapView)
         let coord = mapView.convert(location, toCoordinateFrom: mapView)
-
-        
-        
         let anot = MKPointAnnotation()
         
         let clLocatioin = CLLocation(latitude: coord.latitude, longitude: coord.longitude)
-        geokoder.reverseGeocodeLocation(clLocatioin) { [weak self] placemarks , error in guard let placemark = placemarks?.first, let city = placemark.locality, let country = placemark.country, let country = placemark.country, error == nil else {
+        geocoder.reverseGeocodeLocation(clLocatioin) { [weak self] placemarks , error in
+            guard let placemark = placemarks?.first,
+            let city = placemark.locality,
+            let country = placemark.country,
+            error == nil else {
                 return
             }
             self?.currLoc = CurrentLocation(city: city, country: country, coordinate: clLocatioin.coordinate)
@@ -39,12 +44,16 @@ class MapViewControler : UIViewController {
             anot.title = city
             anot.subtitle = country
         }
-        
+    
         mapView.removeAnnotations(mapView.annotations)
         mapView.addAnnotation(anot)
     }
 }
+
+//    MARK: Extensions
+
 extension MapViewControler: MKMapViewDelegate {
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotationTitle = view.annotation?.title, let anotationSubTitle = view.annotation?.subtitle
         else {

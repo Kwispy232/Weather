@@ -188,15 +188,9 @@
                         <color key="badgeColor" systemColor="linkColor"/>
                     </tabBarItem>
                     <navigationItem key="navigationItem" title="Weather" id="i0C-Dk-ddb">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="1GK-uW-haS">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="1GK-uW-haS">
                             <connections>
                                 <action selector="manageFav:" destination="BYZ-38-t0r" id="1bX-0b-xJ9"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="search" id="Gty-wM-ejA">
-                            <color key="tintColor" systemColor="linkColor"/>
-                            <connections>
-                                <action selector="search:" destination="BYZ-38-t0r" id="5Dy-MK-Klb"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

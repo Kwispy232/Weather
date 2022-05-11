@@ -10,33 +10,28 @@ import UIKit
 
 class FavouriteViewControler : UIViewController {
     
-    
     static let favViewControler = FavouriteViewControler()
-    
     @IBOutlet var favTableView: UITableView!
 
 //  MARK: Lifecycle
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.favTableView.reloadData()
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         favTableView.reloadData()
     }
     
-    
 }
+
 //  MARK: Extensions
+
 extension FavouriteViewControler : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let favCell = tableView.dequeueReusableCell(withIdentifier: "favouriteCell", for: indexPath)
+        let favouriteCell = tableView.dequeueReusableCell(withIdentifier: "favouriteCell", for: indexPath)
         let place = FavouriteManager.favouriteManager.favGet(on: indexPath.row)
-        favCell.textLabel?.text = place.city
-        favCell.detailTextLabel?.text = place.country
+        favouriteCell.textLabel?.text = place.city
+        favouriteCell.detailTextLabel?.text = place.country
         
-        return favCell
+        return favouriteCell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

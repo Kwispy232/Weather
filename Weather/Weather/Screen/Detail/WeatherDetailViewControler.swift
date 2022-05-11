@@ -9,10 +9,9 @@ import UIKit
 import CoreLocation
 import Charts
 
-
 class WeatherDetailViewControler: UIViewController {
 
-//MARK: outlet
+//    MARK: Outlets
     
     @IBOutlet var date: UILabel!
     @IBOutlet var feelsLike: UILabel!
@@ -23,33 +22,22 @@ class WeatherDetailViewControler: UIViewController {
     @IBOutlet var favMark: UIBarButtonItem!
     @IBOutlet var chartView: LineChartView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
- 
     @IBOutlet var emptyView: UIView!
     @IBOutlet var errorMessLabel: UILabel!
-    //MARK: var
-  
-
-    var refreshControl = UIRefreshControl()
     
+//    MARK: Var
+    
+    var refreshControl = UIRefreshControl()
     var place: Place?
     var location : CurrentLocation?
-    
     var shouldUpdateLocation = true
-    
     var days = [Daily]()
     var hours = [CurrentWeather]()
     
 //    MARK: Buttons
+    
     @IBAction func buttonReload(_ sender: Any) {
         loadData()
-    }
-    
-    @IBAction func search(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "SearchViewControler", bundle: nil)
-        if let navigationControler = storyboard.instantiateInitialViewController() {
-            present(navigationControler, animated: true)
-            
-        }
     }
     
     @IBAction func manageFav(_ sender: Any) {
@@ -63,9 +51,9 @@ class WeatherDetailViewControler: UIViewController {
         }
         setButtonImage()
     }
-    
-    
+        
 //    MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -108,6 +96,7 @@ class WeatherDetailViewControler: UIViewController {
     }
     
 //    MARK: DataLoad
+    
     func loadData() {
         guard let location = self.location else {
             return
@@ -189,9 +178,8 @@ class WeatherDetailViewControler: UIViewController {
         self.tableView.refreshControl?.endRefreshing()
     }
     
-    
-    
 //    MARK: UI Setup
+    
     func setUpView(with currentWeather: CurrentWeather) {
         setButtonImage()
         temperature.text = "\(Int(currentWeather.temperature))°C"
@@ -212,24 +200,17 @@ class WeatherDetailViewControler: UIViewController {
         } else {
             alertControler = UIAlertController(title: "Localization is denied".localizable(), message: "If you want to continue turn on localization.".localizable(), preferredStyle: .actionSheet)
         }
-
         
         let okAction = UIAlertAction(title: "Ok", style: .cancel)
-        
         let settingsAction = UIAlertAction(title: "Settings", style: .default) { action in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(settingsUrl) else {
                     return
                 }
             UIApplication.shared.open(settingsUrl, completionHandler: nil)
-
         }
-        
-        
         if let alertControler = alertControler {
-            
             alertControler.addAction(okAction)
             alertControler.addAction(settingsAction)
-            
             present(alertControler, animated: true)
         }
     }
@@ -243,44 +224,33 @@ class WeatherDetailViewControler: UIViewController {
     
     func setGraph() {
         var lineChart = [ChartDataEntry]()
-        
         let calendar = Calendar.current
         var date = Date()
-        
         let actualHour = calendar.component(.hour, from: date)
-
         var moreThan23 = false
+        
         if hours.count > 0 {
             for i in 1...24 - actualHour {
-               
                 if calendar.component(.hour, from: hours[i].date) == 23 {
                     moreThan23 = true
                 }
                 let hour = calendar.component(.hour, from: hours[i].date) == 0 && moreThan23 ? 24 : calendar.component(.hour, from: hours[i].date)
-                
-                
                 let temp = hours[i].temperature
-                
                 let val = ChartDataEntry(x:Double(hour), y: temp)
                 lineChart.append(val)
-            
             }
         }
 
         
         let line = LineChartDataSet(entries: lineChart, label: "Hourly temperature in °C".localizable())
         line.colors = [NSUIColor .systemBlue]
-        
         let data = LineChartData()
-        
         data.addDataSet(line)
-         
         chartView.data = data
     }
-
 }
 
-//MARK: extensions
+//    MARK: Extensions
 
 extension WeatherDetailViewControler: UITableViewDataSource {
     

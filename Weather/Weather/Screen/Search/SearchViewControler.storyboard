@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -61,13 +62,11 @@
                             <constraint firstItem="ROZ-7e-KGU" firstAttribute="bottom" secondItem="JNM-j1-R9Y" secondAttribute="bottom" id="pdY-sP-tiH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Search" id="sWD-oP-QLh">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ehc-mL-xFM">
-                            <connections>
-                                <action selector="close:" destination="hdj-eJ-mgi" id="8Rb-6M-mNs"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <tabBarItem key="tabBarItem" title="" id="DzM-T4-Xgl">
+                        <imageReference key="image" image="magnifyingglass" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                    <navigationItem key="navigationItem" title="Search" id="sWD-oP-QLh"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="ROZ-7e-KGU" id="SUi-vT-2nv"/>
                     </connections>
@@ -97,6 +96,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

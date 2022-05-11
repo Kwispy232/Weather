@@ -10,21 +10,21 @@ import Alamofire
 
 class SearchViewControler : UIViewController {
     
-//MARK: - Outlets
+//    MARK: - Outlets
     @IBOutlet weak var tableView : UITableView!
     
+//    MARK: - Constants
     
-//    MARK: - constants
     private let searchController = UISearchController(searchResultsController: nil)
     private let searchManager = SearchManager()
 
-    //MARK: - Variables
+//    MARK: - Variables
     private var places = [Place]()
     
 //    MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupSearchController()
     }
     
@@ -41,7 +41,7 @@ class SearchViewControler : UIViewController {
 }
 
 
-//MARK: - extensions
+//MARK: - Extensions
 
 extension SearchViewControler : UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -78,7 +78,6 @@ extension SearchViewControler: UITableViewDelegate {
         if let weatherViewControler = storyboard.instantiateViewController(identifier: "WeatherDetailViewControler") as? WeatherDetailViewControler {
             weatherViewControler.shouldUpdateLocation = false
             weatherViewControler.place = place
-            
             navigationController?.pushViewController(weatherViewControler, animated: true)
         }
     }

@@ -11,61 +11,59 @@ class FavouriteManager {
     static let favouriteManager = FavouriteManager()
     
     private let userDefaults = UserDefaults.standard
-    private var favourits : [String]
+    private var favourites = [Place]()
     
     init() {
-        favourits = self.userDefaults.object(forKey: "places") as? [String] ?? []
+        reloadFav()
     }
     
     func addFav(with place : Place) {
-        favourits.append(place.city + "/" + place.country)
+        favourites.append(place)
         saveFav()
     }
     
-    func removeFav(with place : Place) {
-        var id = -1
-        for i in 0..<favourits.count {
-            let placeInfo = favourits[i].components(separatedBy: "/")
-            let city = placeInfo[0]
-            let country = placeInfo[1]
-            if city == place.city && country == place.country  {
-                id = i
-            }
+    func removeFav(with selectedPlace : Place) {
+        let index = favourites.firstIndex {
+            $0.city == selectedPlace.city && $0.country == selectedPlace.country
         }
-        if id > -1 {
-            favourits.remove(at: id)
+        
+        if let index = index {
+            favourites.remove(at: index)
             saveFav()
         }
     }
     
     func exists(_ place: Place) -> Bool {
-        var id = -1
-        for i in 0..<favourits.count {
-            let placeInfo = favourits[i].components(separatedBy: "/")
-            let city = placeInfo[0]
-            let country = placeInfo[1]
-            if city == place.city && country == place.country  {
-                id = i
-            }
-        }
-
-        return id != -1
+        return favourites.firstIndex { $0.city == place.city && $0.country == place.country } != nil
     }
     
     func saveFav() {
-        self.userDefaults.set(favourits, forKey: "places")
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(favourites)
+            self.userDefaults.set(data, forKey: "places")
+        } catch {
+            print("error")
+        }
     }
     
     func reloadFav() {
-        favourits = self.userDefaults.object(forKey: "places") as? [String] ?? []
+        let decoder = JSONDecoder()
+        let data = userDefaults.data(forKey: "places")
+        if let data = data {
+            do {
+                try favourites = decoder.decode([Place].self, from: data)
+            } catch {
+                print("error")
+            }
+        }
     }
     
     func favCount() -> Int {
-        return favourits.count
+        return favourites.count
     }
     
     func favGet(on id: Int) -> Place {
-        let placeInfo = favourits[id].components(separatedBy: "/")
-        return Place(city: placeInfo[0], country: placeInfo[1])
+        return favourites[id]
     }
 }
