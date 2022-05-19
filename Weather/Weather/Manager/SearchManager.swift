@@ -12,14 +12,17 @@ typealias LocalSearchCompletionHandler = (([Place]) -> Void)
 
 class SearchManager: NSObject {
 
-//    MARK: - constants
+//    MARK: - Constants
 
     private let searchCompleter = MKLocalSearchCompleter()
 
-    //    MARK: - variables
+//    MARK: - Variables
     
     private var searchCompletion: LocalSearchCompletionHandler?
     
+    /**
+     Konštruktor volá konštruktor predka a nastaví delegáta a resultt type LocalSearchCompletionHandelera
+     */
     override init() {
         super.init()
         
@@ -27,6 +30,12 @@ class SearchManager: NSObject {
         searchCompleter.resultTypes = .address
     }
 
+    /**
+     Funkcia preberie query a completion a poskytne výsledok vyhľadávania
+     
+     Parameters:
+     -  query:String, completion: @escaping LocalSearchCompletionHandler
+     */
     func getlocalSearchResult(from query: String, completion: @escaping LocalSearchCompletionHandler) {
         self.searchCompletion = completion
         
@@ -44,7 +53,15 @@ struct Place : Codable {
     let country: String
 }
 
+//    MARK: - Extensions
+
 extension SearchManager: MKLocalSearchCompleterDelegate {
+    /**
+     Funkcia postupne filtruje text pri písaní používateľa a poskytuje návrhy na základe písaného textu.
+     
+     Parameters:
+     -  completer:MKLocalSearchCompleter
+     */
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         
         let places = completer.results

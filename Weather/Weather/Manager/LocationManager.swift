@@ -32,6 +32,13 @@ class LocationManager : CLLocationManager {
     }
 
     //  MARK: LocationHandling
+    
+    /**
+     Funkcia preberie completion a spustí získavanie lokácie používateľa
+     
+     Parameters:
+     -complation: @escaping(CurrentLocation?, Error?)->Void
+     */
     func getLocation(complation: @escaping(CurrentLocation?, Error?)->Void) {
         self.completion = complation
         startUpdatingLocation()
@@ -39,7 +46,12 @@ class LocationManager : CLLocationManager {
         delegate = self
     }
 
-    
+    /**
+     Funkcia preberie completion a spustí získavanie lokácie pre parameter place na základe používateľovej voľby
+     
+     Parameters:
+     -place:Place, complation: @escaping(CurrentLocation?, Error?)->Void
+     */
     func getLocationFromPlace(where place : Place, comp: @escaping(CurrentLocation?, Error?) -> Void ) {
         let address = place.country + ", " + place.city
         geokoder.geocodeAddressString(address) { placemars, error in
@@ -54,39 +66,27 @@ class LocationManager : CLLocationManager {
         }
     }
     
-    
+    /**
+     Funkcia priradí hodnotu parametra do atribútu autCompletion s ktorým buďe LocationManager ďalej pracovať
+     
+     Parameters:
+     -completion : ((Bool?)->Void?)
+     */
     func onAuthorizationChange(completion : ((Bool?)->Void)?) {
         self.autCompletion = completion
     }
-    
-    
-    func getTimeZone(location: CLLocationCoordinate2D, completion: @escaping ((TimeZone) -> Void)) {
-        let cllLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
-        let geocoder = CLGeocoder()
-
-        geocoder.reverseGeocodeLocation(cllLocation) { placemarks, error in
-
-            if let error = error {
-                print(error.localizedDescription)
-
-            } else {
-                if let placemarks = placemarks {
-                    if let optTime = placemarks.first!.timeZone {
-                        completion(optTime)
-                        self.stopUpdatingLocation()
-
-                    }
-                }
-            }
-        }
-    }
-    
-    
     
 }
 
 //  MARK: Extensions
 extension LocationManager : CLLocationManagerDelegate {
+    
+    /**
+     Funkcia sa vykoná pri zmene lokácie používateľa, či už poďla jeho aktuálnej polohy alebo voľby. Funkcia v tele nastaví hodnoty completion.
+     
+     Parameters:
+     -  manager:CLLocationManager, locations:[CLLocation]
+     */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else {
             return
@@ -106,6 +106,12 @@ extension LocationManager : CLLocationManagerDelegate {
         }
     }
     
+    /**
+     Funkcia sa zavolá na pri zmene autorizácie lokalizačných služieb používateľa a nastaví hodnotu authCompletion
+     
+     Parameters:
+     -  manager:CLLocationManager
+     */
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .denied:

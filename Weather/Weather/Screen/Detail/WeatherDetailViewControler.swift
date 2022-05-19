@@ -35,11 +35,22 @@ class WeatherDetailViewControler: UIViewController {
     var hours = [CurrentWeather]()
     
 //    MARK: Buttons
-    
+    /**
+     Funkcia sprístupňujúca používateľovi možnosť reloadu
+     
+     Parameters:
+     -  sender:Any
+     */
     @IBAction func buttonReload(_ sender: Any) {
         loadData()
     }
     
+    /**
+     Funkcia sprístupňuje používateľovi možnosť pridať alebo odobrať lokácii do obľúbených
+     
+     Parameters:
+     -  sender:Any
+     */
     @IBAction func manageFav(_ sender: Any) {
         guard let place = place else {
             return
@@ -54,6 +65,9 @@ class WeatherDetailViewControler: UIViewController {
         
 //    MARK: Lifecycle
     
+    /**
+     Funkcia sa zavolá na načítanie obrazovky WeatherDetailView volá metódu predka a volá všetky metódy potrebné na nastavenie dát a grafických prvkov obrazovky
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -91,12 +105,17 @@ class WeatherDetailViewControler: UIViewController {
         }
     }
     
+    /**
+     Funkcia sa zavolá pri zovrazení WeatherDetailView a nastaví obrázok tlačidla obľúbené
+     */
     override func viewDidAppear(_ animated: Bool) {
         setButtonImage()
     }
     
 //    MARK: DataLoad
-    
+    /**
+     Funkcia volá metódu RequesrManagera ktorý vykoná API call nastaví grafické prvky a naplní dáta z API callu do atribútov
+     */
     func loadData() {
         guard let location = self.location else {
             return
@@ -128,6 +147,9 @@ class WeatherDetailViewControler: UIViewController {
 
     }
     
+    /**
+    Funckia požiada LocationManagera o zistenie aktuálnej lokácue používateľa, výsledkami práce LocationManagera naplní atribúty
+     */
     func getLocation() {
         LocationManager.shared.getLocation { [weak self] location, error in
             guard let self = self else { return }
@@ -145,6 +167,9 @@ class WeatherDetailViewControler: UIViewController {
         }
     }
     
+    /**
+     Funkcia požiada LocationManagera o dáta zvolenej polohy, výsledky práce LocationManagera naplní do atribútov
+     */
     func getLocationFromPlace() {
         LocationManager.shared.stopUpdatingLocation()
         if let place = place {
@@ -167,6 +192,9 @@ class WeatherDetailViewControler: UIViewController {
         }
     }
     
+    /**
+     OBJC funkcia volaná pri refreshi vykonanom používateľom nastaví LocationManagera a načíta data
+     */
     @objc func refreshLocation() {
         LocationManager.shared.startUpdatingLocation()
         shouldUpdateLocation = true
@@ -174,12 +202,21 @@ class WeatherDetailViewControler: UIViewController {
         self.tableView.refreshControl?.endRefreshing()
     }
     
+    /**
+     OBJC funkcia volaná pri refreshi vykonanom používateľom.
+     */
     @objc func noRefreshLocation() {
         self.tableView.refreshControl?.endRefreshing()
     }
     
 //    MARK: UI Setup
     
+    /**
+     Funkcia nastaví grafické prvky WeatherDetailView dátami prebratými v parametri
+     
+     Parameters:
+     -  currentWeather:CurrentWeather
+     */
     func setUpView(with currentWeather: CurrentWeather) {
         setButtonImage()
         temperature.text = "\(Int(currentWeather.temperature))°C"
@@ -191,7 +228,9 @@ class WeatherDetailViewControler: UIViewController {
         tableView.rowHeight = 50
     }
     
-    
+    /**
+     Funkcia používatelovi prezentuje alert v prípade že sú jeho lokalizačné služby neprístupné, pouźívateľovi je umožnené prekliknutie do nastavení a povolenie lokalizačných služieb
+     */
     func presentAlert() {
         var alertControler : UIAlertController?
         
@@ -215,13 +254,18 @@ class WeatherDetailViewControler: UIViewController {
         }
     }
     
-    
+    /**
+     Funkicia nastavuje grafickú reprezentáciu obrázku na základe toho či je daná lokáciua uložená v obľúbených alebo nie
+     */
     func setButtonImage() {
         if let place = place {
             favMark.image = FavouriteManager.favouriteManager.exists(place) ? UIImage(systemName: "star.fill"): UIImage(systemName: "star")
         }
     }
     
+    /**
+     Funkcia prezentuje dáta o hodinovej teplote získané z API callu prostredníctvom grafu
+     */
     func setGraph() {
         var lineChart = [ChartDataEntry]()
         let calendar = Calendar.current
@@ -253,11 +297,25 @@ class WeatherDetailViewControler: UIViewController {
 //    MARK: Extensions
 
 extension WeatherDetailViewControler: UITableViewDataSource {
-    
+    /**
+     Funkcia volá funkciu presentWeatherDetailView na základe používateľom zakliknutej celly
+     
+     Parameters:
+     -  tableView:UITableView, indexPath:IndexPath
+     */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return days.count
     }
     
+    /**
+     Funkcia preberá v parametri index aktuálne prezentovanej celly v tableView. Danej celle nastavuje hodnoty a následne ju varacia
+     
+     Parameters:
+     -  tableView: UITableVIew, indexPath:IndexPath
+     
+     Returns:
+     - UITableViewCell
+     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell") as? WeatherCell
         else {
@@ -270,6 +328,12 @@ extension WeatherDetailViewControler: UITableViewDataSource {
 }
 
 extension WeatherDetailViewControler {
+    /**
+     Funkcia sa zavolá na zmenu Farebného režimu zariadenia a je implementovaná z dôvodu potreby zmeny niektorých grafických prvkov pre jednotlivé režimy
+     
+     Parameters:
+     -  previousTraitCollection: UITraitCollection
+     */
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         loadData()
@@ -277,6 +341,9 @@ extension WeatherDetailViewControler {
 }
 
 extension String {
+    /**
+     Funkcia umožní jednotlivým strignom používať preklad do slovenčiny, ak je definovaný
+     */
     func localizable() -> String {
         return NSLocalizedString(self, tableName: "Localizable", bundle: .main, value: self, comment: self)
     }

@@ -9,6 +9,9 @@ import Foundation
 
 extension DateFormatter {
     
+    /**
+     Funkcia zabezpečuje custom formát dátumu
+     */
     static let dayFormatter: DateFormatter = {
         let dateFormater = DateFormatter()
         dateFormater.dateFormat = "EEEE"

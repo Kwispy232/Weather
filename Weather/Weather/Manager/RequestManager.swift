@@ -13,6 +13,12 @@ import CoreLocation
 struct RequestManager {
     static let shared = RequestManager()
     
+    /**
+     Funkcia používa Alamofire na vykonnie API requestu pre konkrétnu lokáciu a výsledné dáta priradí do predpripravených štruktúr WeatherResponse
+     
+     Parameters:
+     -  coordinates:CLLocationCoordinate2D, completion:@escaping (Result<WeatherResponse, AFError>) -> Void
+     */
     func getWeatherData(for coordinates :CLLocationCoordinate2D, completion: @escaping (Result<WeatherResponse, AFError>) -> Void) {
         let request = WeatherRequest(lat: "\(coordinates.latitude)", lon: "\(coordinates.longitude)", exclude: "minutely", appid: "b9944ed07816bcbc5572cb754deafb21", units: "metric")
         

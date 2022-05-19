@@ -17,15 +17,23 @@ class MapViewControler : UIViewController {
     var currLoc : CurrentLocation?
 
 //    MARK: Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
+    /**
+    Fukncia preberie parameter animated a zavola funkciu viewDidApear predka a varesetuje všetky anotations
+     
+    Parametes:
+     -  animated:Bool
+     */
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         mapView.removeAnnotations(mapView.annotations)
     }
 
+    /**
+     Fukcia zabezpečuje položenie anotation na mapu v mieste dlhého podržania pouvateľom
+     
+     Parameters:
+     -  sender:UILongPressGestureRecognizer
+     */
     @IBAction func longTouch(_ sender: UILongPressGestureRecognizer) {
         let location = sender.location(in: mapView)
         let coord = mapView.convert(location, toCoordinateFrom: mapView)
@@ -53,7 +61,12 @@ class MapViewControler : UIViewController {
 //    MARK: Extensions
 
 extension MapViewControler: MKMapViewDelegate {
-    
+    /**
+     Fukcia zabezpečuje vykonanie akcie na stlačenie položenej anotation.
+     
+     Parameters:
+     -  mapView:MKMapView, view:MKAnnotationView
+     */
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotationTitle = view.annotation?.title, let anotationSubTitle = view.annotation?.subtitle
         else {
@@ -63,6 +76,12 @@ extension MapViewControler: MKMapViewDelegate {
         presentWeatherDetail(with: place)
     }
     
+    /**
+     Fukncia preberie ako parameter miesto a prezentuje WeatherDetailView pre v parametri prebrate miesto
+     
+     Parameters:
+     - place:Place
+     */
     func presentWeatherDetail(with place: Place) {
         let storyboard = UIStoryboard(name: "WeatherDetailViewControler", bundle: nil)
         if let weatherViewControler = storyboard.instantiateViewController(identifier: "WeatherDetailViewControler") as? WeatherDetailViewControler {

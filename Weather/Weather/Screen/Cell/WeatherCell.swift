@@ -14,6 +14,12 @@ class WeatherCell: UITableViewCell {
     @IBOutlet var pop: UILabel!
     @IBOutlet var temp: UILabel!
     
+    /**
+     Funckia preberie dáta v parametry day a nastavý svoje grafikcé prvky
+     
+     Parameters:
+     -  day:Daily
+     */
     func setDailyCell(with day: Daily) {
         self.day.text = DateFormatter.dayFormatter.string(from: day.date)
         if self.traitCollection.userInterfaceStyle == .dark {
